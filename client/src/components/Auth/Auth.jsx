@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
   Avatar,
@@ -34,16 +34,16 @@ const Auth = () => {
   // This way you don't have to create a separate route for each.
   const [isSignUp, setIsSignUp] = useState(false);
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     if (isSignUp) {
-      dispatch(signup(formData, history));
+      dispatch(signup(formData, navigate));
     } else {
-      dispatch(signin(formData, history));
+      dispatch(signin(formData, navigate));
     }
   };
 
@@ -66,7 +66,7 @@ const Auth = () => {
     try {
       dispatch({ type: 'AUTH', data: { result, token } });
 
-      history.push('/');
+      navigate('/');
     } catch (error) {
       console.log(error);
     }

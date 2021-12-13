@@ -42,14 +42,14 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
   }
 }
 
-export const createPost = (post, history) => async (dispatch) => {
+export const createPost = (post, navigate) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
     const { data } = await api.createPost(post);
     const action = { type: CREATE, payload: data};
 
     // history object passed here so that we can redirect on post creation
-    history.push(`/posts/${data._id}`);
+    navigate(`/posts/${data._id}`);
     dispatch(action);
     dispatch({ type: END_LOADING });
   } catch (error) {
@@ -67,11 +67,11 @@ export const updatePost = (id, post) => async (dispatch) => {
   }
 }
 
-export const deletePost = (id, history) => async (dispatch) => {
+export const deletePost = (id, navigate) => async (dispatch) => {
   try {
     await api.deletePost(id);
 
-    history.push(`/`);
+    navigate(`/`);
     dispatch({ type: DELETE, payload: id });
   } catch (error) {
     console.log(error);

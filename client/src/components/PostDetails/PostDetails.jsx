@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import {
   Paper,
   Typography,
@@ -19,7 +19,7 @@ const PostDetails = () => {
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   const classes = useStyles();
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const PostDetails = () => {
   }
 
   const openPost = (_id) => {
-    history.push(`/posts/${_id}`);
+    navigate(`/posts/${_id}`);
   };
 
   // The current post will appear in the list so this will filter it out

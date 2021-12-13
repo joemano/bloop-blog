@@ -9,7 +9,7 @@ import {
   Button,
 } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import ChipInput from 'material-ui-chip-input';
 
 import { getPosts, getPostsBySearch } from '../../actions/posts';
@@ -33,7 +33,7 @@ const Home = () => {
 
   // Query is where we get the page info from
   const query = useQuery();
-  const history = useHistory();
+  const navigate = useNavigate();
   const page = query.get('page') || 1;
   const searchQuery = query.get('searchQuery');
 
@@ -46,11 +46,11 @@ const Home = () => {
       // arrays should be converted to strings before being passed to backend
       const stringedTags = tags.join(',');
       dispatch(getPostsBySearch({ search, tags: stringedTags }));
-      history.push(
+      navigate(
         `/posts/search?searchQuery=${search || 'none'}&tags=${stringedTags}`
       );
     } else {
-      history.push('/');
+      navigate('/');
     }
   };
 

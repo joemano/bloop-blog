@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import decode from 'jwt-decode';
 
 import { AppBar, Avatar, Typography, Toolbar, Button } from '@material-ui/core';
@@ -15,7 +15,7 @@ const Navbar = ({ user, setUser }) => {
   const dispatch = useDispatch();
 
   // router hooks
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const Navbar = ({ user, setUser }) => {
   const logout = () => {
     dispatch({ type: 'LOGOUT' });
 
-    history.push('/');
+    navigate('/');
     setUser(null);
   }
 

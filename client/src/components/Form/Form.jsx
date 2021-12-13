@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, Paper, Grid } from '@material-ui/core';
 import FileBase from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ChipInput from 'material-ui-chip-input';
 
 import useStyles from './styles';
@@ -20,7 +20,7 @@ const Form = ({ currentId, setCurrentId }) => {
   const post = currentId ? posts.find((p) => p._id === currentId) : null;
   const classes = useStyles();
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('profile'));
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const Form = ({ currentId, setCurrentId }) => {
         updatePost(currentId, { ...postData, name: user?.result?.name })
       );
     } else {
-      dispatch(createPost({ ...postData, name: user?.result?.name }, history));
+      dispatch(createPost({ ...postData, name: user?.result?.name }, navigate));
     }
     clear();
   };

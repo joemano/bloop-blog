@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { CssBaseline, } from '@material-ui/core';
 
 //Components
@@ -15,17 +15,17 @@ const App = () => {
     <BrowserRouter basename='/bloop'>
       <CssBaseline />
       <Navbar user={user} setUser={setUser} />
-        <Switch>
-          <Route exact path='/' component={() => <Redirect to='/posts' />} />
-          <Route exact path='/posts' component={Home} />
-          <Route exact path='/posts/search' component={Home} />
-          <Route exact path='/posts/:id' component={PostDetails} />
+        <Routes>
+          <Route exact path='/' element={<Navigate to='/posts' />} />
+          <Route exact path='/posts' element={<Home />} />
+          <Route exact path='/posts/search' element={<Home />} />
+          <Route exact path='/posts/:id' element={<PostDetails />} />
           <Route
             exact
             path='/auth'
-            component={() => (!user ? <Auth /> : <Redirect to='/posts' />)}
+            element={!user ? <Auth /> : <Navigate to='/posts' />}
           />
-        </Switch>
+        </Routes>
     </BrowserRouter>
   );
 };

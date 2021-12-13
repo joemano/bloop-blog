@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useStyles from './styles';
 import {
   Card,
@@ -26,7 +26,7 @@ const Post = ({ post, setCurrentId }) => {
   const [likes, setLikes] = useState(post?.likes);
   const classes = useStyles();
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('profile'));
   const userId = user?.result?.googleId || user?.result?._id;
 
@@ -57,7 +57,7 @@ const Post = ({ post, setCurrentId }) => {
   };
 
   const openPost = () => {
-    history.push(`/posts/${post._id}`);
+    navigate(`/posts/${post._id}`);
   };
 
   const hasLiked = post.likes.find((like) => like === userId);
@@ -139,7 +139,7 @@ const Post = ({ post, setCurrentId }) => {
           <Button
             size='small'
             color='secondary'
-            onClick={() => dispatch(deletePost(post._id, history))}
+            onClick={() => dispatch(deletePost(post._id, navigate))}
           >
             <DeleteIcon fontSize='small' />
             Delete
